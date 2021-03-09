@@ -1,0 +1,114 @@
+WindowManager:
+    MainMenu:
+    ScrapeMenu:
+    CalendarView
+
+
+<MainMenu>:
+    name:"menu"
+    FloatLayout:
+        canvas.before:
+            Color:
+                rgba:(255,255,255,1)
+            Rectangle:
+                pos:self.pos
+                size:self.size
+        Label:
+            size_hint:1, 0.1
+            text: root.record_value
+            color:(0,0,0,1)
+            pos_hint: {"y":0.9}
+        Button:
+            text:"Update Calendar"
+            size_hint:0.2,.2
+            pos_hint: {"y":0.7,"x":0.1}
+            background_normal:''
+            background_color:(1,0.1,0.1,1)
+
+            on_release:
+                app.root.current="scrape"
+                root.manager.transition.direction="left"
+        Button:
+            text:"View Calendar"
+            size_hint:0.2,.2
+            pos_hint: {"y":0.7,"x":0.4}
+            background_normal:''
+            background_color:(1,0.78,0,1)
+            on_release:
+                app.root.current="calendar"
+                root.manager.transition.direction="left"
+
+
+
+
+<ScrapeMenu>:
+    name:"scrape"
+    starting_date:start_date
+    ending_date:end_date
+    FloatLayout:
+        canvas.before:
+            Color:
+                rgba:(255,0,0,1)
+            Rectangle:
+                pos:self.pos
+                size:self.size
+        Label:
+            text:"Enter starting date (ddmmmyyyy e.g. 2Mar2021):"
+            font_size: 16
+            size_hint:0.5,0.3
+            pos_hint:{"x":0,"y":0.7}
+        Label:
+            text:"Enter ending date (ddmmmyyyy e.g. 2Mar2021):"
+            font_size: 16
+            size_hint:0.5,0.3
+            pos_hint:{"x":0,"y":0.4}
+        Button:
+            text:"Confirm"
+            font_size: 18
+            size_hint:0.3,0.3
+            pos_hint:{"x":0.6,"y":0.1}
+            on_release:
+                root.update_btn()
+                app.root.current="menu"
+
+        Button:
+            text:"Cancel"
+            font_size: 18
+            size_hint:0.3,0.3
+            pos_hint:{"x":0.1,"y":0.1}
+            on_release:
+                app.root.current="menu"
+                root.manager.transition.direction="right"
+        TextInput:
+            id:start_date
+            font_size: 18
+            size_hint:0.4,0.2
+            pos_hint:{"x":0.5,"y":0.75}
+        TextInput:
+            id:end_date
+            font_size: 18
+            size_hint:0.4,0.2
+            pos_hint:{"x":0.5,"y":0.45}
+
+
+<CalendarView>:
+    name:"calendar"
+    FloatLayout
+        Button:
+            pos_hint:{"x":0.01,"y":0.89}
+            size_hint:(0.1,0.1)
+            text:"Back"
+            on_release:
+                app.root.current="menu"
+                root.manager.transition.direction="right"
+        Button:
+            pos_hint:{"x":0.01,"y":0.78}
+            size_hint:(0.1,0.1)
+            text:"Select Date"
+            on_release:
+                root.select_date()
+
+
+
+
+
